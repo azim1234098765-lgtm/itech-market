@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Itech — Магазин iPhone</title>
+  <!-- Подключаем шрифт и иконки -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== ВЕРХНЯЯ ПАНЕЛЬ ========== -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fas fa-mobile-screen-button"></i> Itech
+      </div>
+      
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Поиск товаров...">
+        <button id="searchBtn"><i class="fas fa-search"></i></button>
+      </div>
+
+      <div class="header-actions">
+        <button id="favoritesBtn" class="icon-btn" title="Избранное">
+          <i class="fas fa-heart"></i> <span id="favCount">0</span>
+        </button>
+        <button id="cartBtn" class="icon-btn" title="Корзина">
+          <i class="fas fa-shopping-bag"></i> <span id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-menu">
+    <div class="container">
+      <a href="#" data-page="home" class="active">Главная</a>
+      <a href="#" data-page="favorites">Избранное</a>
+      <a href="#" data-page="cart">Корзина</a>
+      <a href="#">Акции</a>
+      <a href="#">Бренды</a>
+      <a href="#">Поддержка</a>
+    </div>
+  </nav>
+
+  <main class="main-content container">
+
+    <section id="page-home" class="page active">
+      <div class="banner">
+        <div class="banner-text">
+          <h1>iPhone уже здесь</h1>
+          <p>Оригинальные iPhone, AirPods и аксессуары Apple по лучшим ценам</p>
+          <a href="#" class="btn-primary">Смотреть всё</a>
+        </div>
+        <div class="banner-image">
+          <i class="fas fa-mobile-screen-button" style="font-size: 120px; color: #fff; opacity: 0.8;"></i>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>Популярные товары</h2>
+        <a href="#" class="see-all">Смотреть все</a>
+      </div>
+      <div class="category-filters" id="categoryFilters"></div>
+      <div class="product-grid" id="productGrid">
+      </div>
+    </section>
+
+    <section id="page-favorites" class="page">
+      <h2>Избранное</h2>
+      <div class="product-grid" id="favoritesGrid">
+      </div>
+    </section>
+
+    <section id="page-product" class="page">
+      <button id="backHomeBtn" class="back-btn"><i class="fas fa-arrow-left"></i> Назад</button>
+      <div id="productDetailContainer">
+      </div>
+    </section>
+
+    <section id="page-cart" class="page">
+      <h2>Корзина</h2>
+      <div id="cartContainer"></div>
+    </section>
+
+    <section id="page-checkout" class="page">
+      <button class="back-btn" data-page="cart"><i class="fas fa-arrow-left"></i> Назад в корзину</button>
+      <div class="checkout-layout">
+        <form id="checkoutForm" class="checkout-form">
+          <h2>Оформление заказа</h2>
+
+          <label>Имя и фамилия</label>
+          <input type="text" id="ckName" required placeholder="Иван Иванов">
+
+          <label>Телефон</label>
+          <input type="tel" id="ckPhone" required placeholder="+998 90 123 45 67">
+
+          <label>Адрес доставки</label>
+          <input type="text" id="ckAddress" required placeholder="Город, улица, дом">
+
+          <label>Способ оплаты</label>
+          <div class="payment-options">
+            <label class="payment-option">
+              <input type="radio" name="payment" value="card" checked>
+              <i class="fas fa-credit-card"></i> Картой онлайн
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cash">
+              <i class="fas fa-money-bill-wave"></i> Наличными при получении
+            </label>
+          </div>
+
+          <div id="cardFields" class="card-fields">
+            <label>Номер карты</label>
+            <input type="text" id="ckCardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+            <div class="card-row">
+              <div>
+                <label>Срок</label>
+                <input type="text" id="ckCardExpiry" placeholder="ММ/ГГ" maxlength="5">
+              </div>
+              <div>
+                <label>CVC</label>
+                <input type="text" id="ckCardCvc" placeholder="123" maxlength="3">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary checkout-submit">Подтвердить заказ</button>
+        </form>
+
+        <div class="order-summary">
+          <h3>Ваш заказ</h3>
+          <div id="checkoutSummaryItems"></div>
+          <div class="summary-row">
+            <span>Товары</span>
+            <span id="checkoutSubtotal">0 сум</span>
+          </div>
+          <div class="summary-row">
+            <span>Доставка</span>
+            <span id="checkoutDelivery">0 сум</span>
+          </div>
+          <div class="summary-row summary-total">
+            <span>Итого</span>
+            <span id="checkoutTotal">0 сум</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-receipt" class="page">
+      <div class="receipt">
+        <div class="receipt-icon"><i class="fas fa-check-circle"></i></div>
+        <h2>Заказ оформлен!</h2>
+        <p class="receipt-sub">Спасибо за покупку. Чек отправлен на ваш номер телефона.</p>
+        <div class="receipt-box" id="receiptBox"></div>
+        <button id="receiptHomeBtn" class="btn-primary">Вернуться на главную</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 Itech. Все права защищены.</p>
+      <div class="footer-links">
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== АНИМЕ ИИ-ПОМОЩНИК С МИКРОФОНОМ ========== -->
+  <div id="ai-assistant" class="ai-assistant joy">
+    <div class="ai-speech-bubble" id="aiBubble">Здарова. Можешь не только кликать, но и нажать на микрофон, чтобы поговорить со мной.</div>
+    <div class="ai-character-layout">
+      <div class="ai-character-anime">
+        <img src="./image/photo_2026-07-26_12-22-46.jpg" class="anime-img joy-img" alt="Рад">
+        <img src="./image/photo_2026-07-26_12-18-34.jpg" class="anime-img sad-img" alt="Грустит">
+        <img src="./image/photo_2026-07-26_12-22-55.jpg" class="anime-img angry-img" alt="Злится">
+      </div>
+      <!-- Кнопка голосового ввода -->
+      <button id="aiMicBtn" class="ai-mic-btn" title="Скажи что-нибудь">
+        <i class="fas fa-microphone"></i>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
